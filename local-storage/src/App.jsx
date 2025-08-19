@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import "./App.css"; // Criar esse CSS para melhorar o visual
+import { AnimatePresence, motion } from "framer-motion"; // instale com: npm install framer-motion
+import "./App.css";
 
 function App() {
   const [nome, setNome] = useState("");
@@ -10,17 +11,27 @@ function App() {
   const [editIndex, setEditIndex] = useState(null);
   const [busca, setBusca] = useState("");
 
-  // Carregar usuários do localStorage ao iniciar
+  // Carregar usuários do localStorage ao iniciar (com fallback seguro)
   useEffect(() => {
-    const dados = localStorage.getItem("usuarios");
-    if (dados) {
-      setUsuarios(JSON.parse(dados));
+    try {
+      const dados = localStorage.getItem("usuarios");
+      if (dados) {
+        const parsed = JSON.parse(dados);
+        if (Array.isArray(parsed)) {
+          setUsuarios(parsed);
+        }
+      }
+    } catch (err) {
+      console.error("Erro ao carregar localStorage:", err);
+      localStorage.removeItem("usuarios"); // limpa dados corrompidos
     }
   }, []);
 
   // Atualizar localStorage sempre que a lista mudar
   useEffect(() => {
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    if (usuarios.length >= 0) {
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    }
   }, [usuarios]);
 
   const limparFormulario = () => {
@@ -76,9 +87,9 @@ function App() {
   );
 
   const corPorIdade = (idade) => {
-    if (idade < 18) return "#f9c74f"; // amarelo
-    if (idade <= 40) return "#90be6d"; // verde
-    return "#f94144"; // vermelho
+    if (idade < 18) return "#ffeeba"; // amarelo claro
+    if (idade <= 40) return "#c3e6cb"; // verde claro
+    return "#f5c6cb"; // vermelho claro
   };
 
   return (
@@ -105,12 +116,12 @@ function App() {
           onChange={(e) => setIdade(e.target.value)}
         />
 
-        <button onClick={adicionarOuEditarUsuario}>
+        <button className="btn adicionar" onClick={adicionarOuEditarUsuario}>
           {editIndex !== null ? "Atualizar" : "Adicionar"}
         </button>
 
         {editIndex !== null && (
-          <button className="cancelar" onClick={limparFormulario}>
+          <button className="btn cancelar" onClick={limparFormulario}>
             Cancelar
           </button>
         )}
@@ -121,7 +132,7 @@ function App() {
       <div className="filtro">
         <input
           type="text"
-          placeholder="Buscar por nome..."
+          placeholder="🔎 Buscar por nome..."
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
         />
@@ -138,24 +149,40 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {usuariosFiltrados.map((usuario, index) => (
-              <tr
-                key={index}
-                style={{ backgroundColor: corPorIdade(usuario.idade) }}
-              >
-                <td>{usuario.nome}</td>
-                <td>{usuario.sobrenome}</td>
-                <td>{usuario.idade}</td>
-                <td>
-                  <button onClick={() => editarUsuario(index)}>Editar</button>
-                  <button onClick={() => removerUsuario(index)}>Remover</button>
-                </td>
-              </tr>
-            ))}
+            <AnimatePresence>
+              {usuariosFiltrados.map((usuario, index) => (
+                <motion.tr
+                  key={index}
+                  style={{ backgroundColor: corPorIdade(usuario.idade) }}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <td>{usuario.nome}</td>
+                  <td>{usuario.sobrenome}</td>
+                  <td>{usuario.idade}</td>
+                  <td>
+                    <button
+                      className="btn editar"
+                      onClick={() => editarUsuario(index)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="btn remover"
+                      onClick={() => removerUsuario(index)}
+                    >
+                      Remover
+                    </button>
+                  </td>
+                </motion.tr>
+              ))}
+            </AnimatePresence>
           </tbody>
         </table>
       ) : (
-        <p>Nenhum usuário encontrado.</p>
+        <p className="nenhum">Nenhum usuário encontrado.</p>
       )}
     </div>
   );
