@@ -1,125 +1,226 @@
+/* ===== Background geral ===== */
 body {
   margin: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 30px;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #121212;
+  color: #f1f1f1;
+  background-image: url('https://images.unsplash.com/photo-1601924582971-7b1cb0a64b56?auto=format&fit=crop&w=1950&q=80'),
+                    url('https://cdn-icons-png.flaticon.com/512/1404/1404945.png');
+  background-size: cover, 50px 50px;
+  background-repeat: no-repeat, repeat;
+  background-attachment: fixed;
+  background-position: center, top left;
 }
 
-.container {
-  background: #fff;
-  padding: 25px 30px;
-  border-radius: 15px;
-  max-width: 800px;
-  width: 100%;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-h1 {
+/* ===== Container principal ===== */
+.app {
   text-align: center;
-  margin-bottom: 25px;
-  color: #444;
+  min-height: 100vh;
+  background-color: rgba(18, 18, 18, 0.85);
+  padding-bottom: 50px;
+  transition: background-color 0.3s;
 }
 
-.formulario {
+/* ===== Navbar ===== */
+.navbar {
+  background-color: rgba(34, 34, 34, 0.95);
+  padding: 15px 40px;
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.7);
+  border-bottom: 3px solid #ff6b00;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.3s ease;
 }
 
-input {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  flex: 1;
-  min-width: 150px;
-  transition: 0.2s;
+.navbar h1 {
+  color: #ffcc00;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  margin: 0;
 }
 
-input:focus {
-  border-color: #007bff;
+.navbar button {
+  margin: 0 8px;
+  padding: 10px 22px;
+  border: none;
+  background: #ff6b00;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  transition: 0.3s;
+}
+
+.navbar button:hover {
+  background: #ffcc00;
+  color: black;
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+}
+
+/* ===== Página ===== */
+.pagina {
+  padding: 35px;
+  max-width: 950px;
+  margin: 30px auto;
+  background-color: rgba(255, 140, 0, 0.2); /* padding laranja translúcido */
+  border-radius: 18px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.7);
+  transition: background-color 0.3s;
+}
+
+/* ===== Formulário ===== */
+.formulario input {
+  display: block;
+  margin: 15px auto;
+  padding: 15px 20px;
+  width: 320px;
+  border-radius: 14px;
+  border: none;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   outline: none;
+  transition: all 0.3s ease;
+  background-color: #ffffff; /* fundo branco */
+  color: #000;
+}
+
+.formulario input:focus {
+  box-shadow: 0 0 15px #ffcc00;
+  background-color: #ffffff; /* mantém branco ao focar */
+  color: #000;
+}
+
+/* Botões do formulário */
+.botoes {
+  margin-top: 20px;
 }
 
 .btn {
-  padding: 10px 16px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: transform 0.15s, opacity 0.2s;
-}
-
-.btn:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
-}
-
-.adicionar {
-  background: #28a745;
-  color: #fff;
-}
-
-.cancelar {
-  background: #6c757d;
-  color: #fff;
-}
-
-.editar {
-  background: #007bff;
-  color: #fff;
-  margin-right: 5px;
-}
-
-.remover {
-  background: #dc3545;
-  color: #fff;
-}
-
-.erro {
-  text-align: center;
-  color: #dc3545;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.filtro {
-  margin: 15px 0;
-  text-align: center;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
+  margin: 5px;
   border-radius: 10px;
-  overflow: hidden;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
 }
 
-th,
-td {
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
+.btn.adicionar {
+  background: #28a745;
+  color: white;
+}
+
+.btn.adicionar:hover {
+  background: #1ed760;
+  transform: scale(1.05);
+}
+
+.btn.cancelar {
+  background: #6c757d;
+  color: white;
+}
+
+.btn.cancelar:hover {
+  background: #adb5bd;
+  transform: scale(1.05);
+}
+
+.btn.editar {
+  background: #ffc107;
+  color: black;
+}
+
+.btn.editar:hover {
+  background: #ffdd57;
+  transform: scale(1.05);
+}
+
+.btn.remover {
+  background: #dc3545;
+  color: white;
+}
+
+.btn.remover:hover {
+  background: #ff6b6b;
+  transform: scale(1.05);
+}
+
+/* ===== Tabela ===== */
+table {
+  width: 95%;
+  margin: 25px auto;
+  border-collapse: collapse;
+  background-color: #ffffff; /* fundo branco */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 14px;
 }
 
 th {
-  background: #007bff;
-  color: white;
-  text-align: left;
+  background-color: #ff6b00; /* cabeçalho laranja */
+  color: #fff;
+  font-size: 1rem;
 }
 
-tr:hover {
-  background: rgba(0, 0, 0, 0.05);
+td {
+  color: #000; /* texto preto sobre fundo branco */
 }
 
-.nenhum {
-  text-align: center;
-  font-style: italic;
-  color: #555;
-  margin-top: 20px;
+tr:nth-child(even) {
+  background-color: #ffe5cc; /* laranja bem claro para alternar linhas */
+}
+
+td button {
+  font-size: 0.9rem;
+}
+
+/* ===== Mensagem de erro ===== */
+.erro {
+  color: #dc3545;
+  font-weight: bold;
+  margin-top: 12px;
+  font-size: 1rem;
+}
+
+/* ===== Promoções ===== */
+.promocoes {
+  list-style: none;
+  padding: 0;
+}
+
+.promocoes li {
+  background: #ffffff; /* fundo branco */
+  margin: 12px auto;
+  padding: 28px;
+  border-radius: 15px;
+  width: 380px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+  font-weight: bold;
+  color: #000;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+  border-left: 8px solid #ff6b00; /* destaque laranja */
+}
+
+.promocoes li:hover {
+  background: #fff7e6; /* laranja claro ao hover */
+  transform: scale(1.05);
+}
+
+/* ===== Pequenas animações suaves ===== */
+input, .btn, .promocoes li, .pagina {
+  transition: all 0.3s ease;
 }
