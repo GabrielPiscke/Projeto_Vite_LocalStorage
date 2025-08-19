@@ -4,13 +4,23 @@ body {
   font-family: "Segoe UI", sans-serif;
   background-color: #121212;
   color: #f1f1f1;
-  background-image: url('https://images.unsplash.com/photo-1601924582971-7b1cb0a64b56?auto=format&fit=crop&w=1950&q=80'),
-                    url('https://cdn-icons-png.flaticon.com/512/1404/1404945.png');
-  background-size: cover, 50px 50px;
-  background-repeat: no-repeat, repeat;
+
+  /* Background com imagens espalhadas */
+  background-image: 
+    url('https://images.unsplash.com/photo-1601924582971-7b1cb0a64b56?auto=format&fit=crop&w=1950&q=80'), /* pizza grande */
+    url('https://cdn-icons-png.flaticon.com/512/1404/1404945.png'), /* pizza pequena 1 */
+    url('https://cdn-icons-png.flaticon.com/512/1404/1404950.png'), /* pizza pequena 2 */
+    url('https://cdn-icons-png.flaticon.com/512/1404/1404948.png'); /* pizza pequena 3 */
+    
+  background-size: cover, 80px 80px, 100px 100px, 90px 90px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  
+  /* Posicionamento espalhado */
+  background-position: center top, 10% 20%, 70% 40%, 50% 80%;
+  
   background-attachment: fixed;
-  background-position: center, top left;
 }
+
 
 /* ===== Container principal ===== */
 .app {
