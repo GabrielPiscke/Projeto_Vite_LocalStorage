@@ -6,17 +6,14 @@ function Cadastro() {
   const [telefone, setTelefone] = useState("");
   const [endereco, setEndereco] = useState("");
   const [pedido, setPedido] = useState("");
-  const [clientes, setClientes] = useState([]);
+  const [clientes, setClientes] = useState(() => {
+    const dados = localStorage.getItem("clientes");
+    return dados ? JSON.parse(dados) : [];
+  });
   const [editIndex, setEditIndex] = useState(null);
   const [erro, setErro] = useState("");
 
-  // Carregar do localStorage
-  useEffect(() => {
-    const dados = localStorage.getItem("clientes");
-    if (dados) setClientes(JSON.parse(dados));
-  }, []);
-
-  // Salvar no localStorage
+  // Salvar clientes no localStorage sempre que mudar
   useEffect(() => {
     localStorage.setItem("clientes", JSON.stringify(clientes));
   }, [clientes]);

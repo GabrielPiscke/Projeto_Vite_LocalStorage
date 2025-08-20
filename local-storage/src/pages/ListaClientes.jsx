@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
 
 function ListaClientes() {
-  const [clientes, setClientes] = useState([]);
-
-  useEffect(() => {
+  // Estado inicial já carregando do localStorage
+  const [clientes, setClientes] = useState(() => {
     const dados = localStorage.getItem("clientes");
-    if (dados) setClientes(JSON.parse(dados));
-  }, []);
+    return dados ? JSON.parse(dados) : [];
+  });
+
+  // Atualiza localStorage sempre que clientes mudar
+  useEffect(() => {
+    localStorage.setItem("clientes", JSON.stringify(clientes));
+  }, [clientes]);
 
   const remover = (index) => {
     const novos = clientes.filter((_, i) => i !== index);
     setClientes(novos);
-    localStorage.setItem("clientes", JSON.stringify(novos));
   };
 
   return (
